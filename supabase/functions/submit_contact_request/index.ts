@@ -2,7 +2,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import nodemailer from "npm:nodemailer";
 import { checkIfContactRequestIsAllowed } from "../_shared/contact-request-checks.ts";
 import { corsHeaders } from "../_shared/cors.ts";
-import { mailTemplate } from "./mail-template.ts";
+import { mailTemplate } from "./mail-template-freiburg.ts";
 import { loadEnvVars } from "../_shared/check-env.ts";
 
 const ENV_VARS = [
