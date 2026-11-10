@@ -1,0 +1,5 @@
+*
+!supabase/config.toml
+!supabase/migrations
+!supabase/functions
+supabase/functions/tests

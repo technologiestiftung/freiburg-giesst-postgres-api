@@ -1,0 +1,5 @@
+# Edge functions for self-hosted Supabase.
+# Replaces the ./volumes/functions mount of the official supabase/docker compose;
+# mount the official main router: ./volumes/functions/main:/home/deno/functions/main:ro
+FROM supabase/edge-runtime:v1.77.9
+COPY supabase/functions /home/deno/functions
