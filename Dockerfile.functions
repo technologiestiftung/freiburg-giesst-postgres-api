@@ -1,0 +1,6 @@
+# Edge functions for self-hosted Supabase (service `functions` in the ds-root-server stack freiburg-giesst-api).
+# Our functions + the official main router, so the server needs no volume mount.
+FROM supabase/edge-runtime:v1.77.9
+COPY edge-runtime/main /home/deno/functions/main
+COPY edge-runtime/deno.jsonc /home/deno/functions/deno.jsonc
+COPY supabase/functions /home/deno/functions

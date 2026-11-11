@@ -1,0 +1,35 @@
+name: Docker Images (GHCR)
+
+on:
+  release:
+    types: [published] # created by semantic-release (tests.yml, via GH_TOKEN)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image: [functions, migrate]
+    env:
+      IMAGE: ghcr.io/${{ github.repository }}-${{ matrix.image }}
+      TAG: ${{ github.event.release.tag_name || github.sha }}
+      LATEST: ${{ github.event_name == 'release' && !github.event.release.prerelease }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Login to GHCR, build and push
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker build -f "Dockerfile.${{ matrix.image }}" \
+            --label org.opencontainers.image.source="https://github.com/${{ github.repository }}" \
+            --label version="$TAG" \
+            --tag "$IMAGE:$TAG" .
+          docker push "$IMAGE:$TAG"
+          if [ "$LATEST" = "true" ]; then
+            docker tag "$IMAGE:$TAG" "$IMAGE:latest"
+            docker push "$IMAGE:latest"
+          fi

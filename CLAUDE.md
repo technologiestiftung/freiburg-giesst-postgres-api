@@ -47,7 +47,11 @@ deno test --allow-all supabase/functions/tests/submit-contact-request-tests.ts -
 
 ## Deployment
 
-Pushing to `staging` or `main` runs `supabase db push` and `supabase functions deploy` against the linked project (GitHub environments `staging`/`production`, secrets `PROJECT_ID`, `DB_PASSWORD`, `SUPABASE_ACCESS_TOKEN`). So merging a migration deploys it.
+Self-hosted on the IONOS root servers, not Supabase Cloud. Nothing deploys from this repo directly:
+
+- A release (semantic-release on `main`/`staging`) triggers `.github/workflows/release-images.yml`. It pushes two images to GHCR: `freiburg-giesst-postgres-api-functions` (Edge Functions + `main` router, see `Dockerfile.functions`) and `freiburg-giesst-postgres-api-migrate` (runs `supabase db push`, see `Dockerfile.migrate`).
+- The stack itself lives in the `ds-root-server` repo, folder `freiburg-giesst-api/`. A new API version is deployed by setting `FREIBURG_API_VERSION` in its `versions/<branch>.versions`. The `migrate` service applies new migrations on `up`.
+- `edge-runtime/` holds upstream Supabase's `main` router and `deno.jsonc` for the Edge Runtime (copied from `supabase/supabase`, `docker/volumes/functions/`). `Dockerfile.functions` bakes them into the functions image together with `supabase/functions/`. Update them from upstream when the stack in ds-root-server is upgraded.
 
 ## Gotchas
 
