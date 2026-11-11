@@ -1,1 +1,3 @@
 supabase/.temp*
+# vendored from supabase/supabase, keep identical to upstream
+edge-runtime/

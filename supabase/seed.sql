@@ -12897,17 +12897,4 @@ INSERT INTO "public"."radolan_harvester" ("id", "collection_date", "start_date",
 								CURRENT_DATE - INTEGER '1')::timestamp + '23:50:00'));
 
 
--- Create the public data_assets bucket
-INSERT INTO storage.buckets(id, name)
-	VALUES ('data_assets', 'data_assets');
-
-CREATE POLICY "Public Access" ON storage.objects
-	FOR SELECT
-		USING (bucket_id = 'data_assets');
-
-UPDATE
-	"storage".buckets
-SET
-	"public" = TRUE
-WHERE
-	buckets.id = 'data_assets';
+-- The public data_assets bucket is created in migration 20261110120000_create_data_assets_bucket.sql
