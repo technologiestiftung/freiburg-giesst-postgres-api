@@ -1,5 +1,5 @@
 {
-	"name": "@technologiestiftung/giessdenkiez-de-postgres-api",
+	"name": "@technologiestiftung/freiburg-giesst-postgres-api",
 	"version": "2.0.0",
 	"private": true,
 	"license": "MIT",
@@ -29,18 +29,18 @@
 		"semantic-release": "23.1.1",
 		"ts-jest": "29.1.2"
 	},
-	"description": "Supabase configuration for the giessdenkiez.de project to interact ",
+	"description": "Supabase configuration for the Freiburg gießt project",
 	"keywords": [
-		"giessdenkiez.de"
+		"freiburg-giesst"
 	],
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/technologiestiftung/giessdenkiez-de-postgres-api.git"
+		"url": "git+https://github.com/technologiestiftung/freiburg-giesst-postgres-api.git"
 	},
 	"bugs": {
-		"url": "https://github.com/technologiestiftung/giessdenkiez-de-postgres-api/issues"
+		"url": "https://github.com/technologiestiftung/freiburg-giesst-postgres-api/issues"
 	},
-	"homepage": "https://github.com/technologiestiftung/giessdenkiez-de-postgres-api#readme",
+	"homepage": "https://github.com/technologiestiftung/freiburg-giesst-postgres-api#readme",
 	"author": "Fabian Morón Zirfas <hash@ff6347.email> (https://fabianmoronzirfas.me)",
 	"contributors": [
 		"@fdnklg"

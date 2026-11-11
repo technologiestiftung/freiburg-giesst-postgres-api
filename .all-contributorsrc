@@ -1,5 +1,5 @@
 {
-  "projectName": "giessdenkiez-de-postgres-api",
+  "projectName": "freiburg-giesst-postgres-api",
   "projectOwner": "technologiestiftung",
   "repoType": "github",
   "repoHost": "https://github.com",
@@ -72,7 +72,7 @@
       "name": "Dennis Ostendorf",
       "avatar_url": "https://avatars.githubusercontent.com/u/15640196?v=4",
       "profile": "https://github.com/dnsos",
-            "contributions": [
+      "contributions": [
         "review"
       ]
     },
@@ -83,6 +83,16 @@
       "profile": "https://github.com/julizet",
       "contributions": [
         "review"
+      ]
+    },
+    {
+      "login": "LuiseBrandenburger",
+      "name": "Luise Brandenburger",
+      "avatar_url": "https://avatars.githubusercontent.com/u/61413319?v=4",
+      "profile": "https://github.com/LuiseBrandenburger",
+      "contributions": [
+        "code",
+        "doc"
       ]
     }
   ],
