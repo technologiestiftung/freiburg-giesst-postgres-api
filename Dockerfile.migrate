@@ -1,0 +1,11 @@
+# One-shot job: applies supabase/migrations to the database in $DATABASE_URL.
+# docker run --rm -e DATABASE_URL=postgresql://postgres:<pw>@db:5432/postgres <image>
+FROM alpine:3.22
+ARG SUPABASE_CLI_VERSION=2.20.3
+ARG TARGETARCH
+RUN wget -qO- "https://github.com/supabase/cli/releases/download/v${SUPABASE_CLI_VERSION}/supabase_linux_${TARGETARCH}.tar.gz" \
+	| tar -xz -C /usr/local/bin supabase
+WORKDIR /app
+COPY supabase/config.toml supabase/config.toml
+COPY supabase/migrations supabase/migrations
+CMD ["sh", "-c", "supabase db push --db-url \"$DATABASE_URL\""]

@@ -2,16 +2,13 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import nodemailer from "npm:nodemailer";
 import { checkIfContactRequestIsAllowed } from "../_shared/contact-request-checks.ts";
 import { corsHeaders } from "../_shared/cors.ts";
-import { mailTemplate } from "./mail-template.ts";
+import { mailTemplate } from "./mail-template-freiburg.ts";
 import { loadEnvVars } from "../_shared/check-env.ts";
 
 const ENV_VARS = [
 	"SMTP_HOST",
-	"SMTP_USER",
-	"SMTP_PASSWORD",
 	"SMTP_FROM",
 	"SMTP_PORT",
-	"SMTP_SECURE",
 	"SUPABASE_URL",
 	"SUPABASE_ANON_KEY",
 	"SUPABASE_SERVICE_ROLE_KEY",
@@ -19,15 +16,19 @@ const ENV_VARS = [
 
 const [
 	SMTP_HOST,
-	SMTP_USER,
-	SMTP_PASSWORD,
 	SMTP_FROM,
 	SMTP_PORT,
-	SMTP_SECURE,
 	SUPABASE_URL,
 	SUPABASE_ANON_KEY,
 	SUPABASE_SERVICE_ROLE_KEY,
 ] = loadEnvVars(ENV_VARS);
+
+// Optional: empty user/password means "no SMTP login" (e.g. mailpit on dev/play).
+// loadEnvVars rejects empty values, so these are read separately.
+const SMTP_USER = Deno.env.get("SMTP_USER") ?? "";
+const SMTP_PASSWORD = Deno.env.get("SMTP_PASSWORD") ?? "";
+// Env values are strings: "false" would be truthy for nodemailer, so compare explicitly.
+const SMTP_SECURE = Deno.env.get("SMTP_SECURE") === "true";
 
 const handler = async (request: Request): Promise<Response> => {
 	if (request.method === "OPTIONS") {
