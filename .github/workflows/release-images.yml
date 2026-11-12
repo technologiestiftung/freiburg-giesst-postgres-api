@@ -1,9 +1,16 @@
 name: Docker Images (GHCR)
 
 on:
-  release:
-    types: [published] # created by semantic-release (tests.yml, via GH_TOKEN)
+  # semantic-release (tests.yml, via GH_TOKEN) only pushes a git tag, it creates no GitHub
+  # Release object, so a `release: published` trigger never fires. Build on the tag instead.
+  push:
+    tags: ["v*"]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: "Image tag (default: commit SHA), e.g. v1.0.0 to rebuild an existing release"
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -17,10 +24,14 @@ jobs:
         image: [functions, migrate]
     env:
       IMAGE: ghcr.io/${{ github.repository }}-${{ matrix.image }}
-      TAG: ${{ github.event.release.tag_name || github.sha }}
-      LATEST: ${{ github.event_name == 'release' && !github.event.release.prerelease }}
+      TAG: ${{ inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || github.sha }}
+      # `latest` only for stable tags (no -rc suffix)
+      LATEST: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref_name, '-') }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # on manual dispatch with a tag, build that tag's code, not the current branch
+          ref: ${{ inputs.tag || github.ref }}
       - name: Login to GHCR, build and push
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
