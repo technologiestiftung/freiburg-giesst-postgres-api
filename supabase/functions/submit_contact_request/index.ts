@@ -142,8 +142,8 @@ const handler = async (request: Request): Promise<Response> => {
 		// Send the email
 		const info = await transporter.sendMail(mailOptions);
 
-		// Update the contact request with the email id
-		const { error: updateRequestError } = await supabaseClient
+		// Update the contact request with the email id (service role: users have no UPDATE grant)
+		const { error: updateRequestError } = await supabaseServiceRoleClient
 			.from("contact_requests")
 			.update({
 				contact_mail_id: info.response,
