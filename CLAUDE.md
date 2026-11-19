@@ -15,7 +15,7 @@ There's no server code here: it's a Supabase project. The frontend talks to Post
 
 ## Commands
 
-Local dev and tests need Docker and the Supabase CLI (CI uses CLI 2.20.3).
+Local dev and tests need Docker and the Supabase CLI (CI uses CLI 3.2.0).
 
 ```bash
 supabase start                     # local stack: API :54321, Studio :54323

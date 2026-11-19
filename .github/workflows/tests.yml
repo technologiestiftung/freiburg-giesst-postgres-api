@@ -9,9 +9,9 @@ env:
   NODE_ENV: "test"
 on:
   push:
-    branches: [main, dev, staging]
+    branches: [main, staging, dev]
   pull_request:
-    branches: [main, dev, staging]
+    branches: [main, staging, dev]
   # see https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue#triggering-merge-group-checks-with-github-actions
   merge_group:
 
@@ -36,7 +36,7 @@ jobs:
           node-version-file: ".nvmrc"
       - uses: supabase/setup-cli@v1
         with:
-          version: 2.20.3
+          version: 3.2.0
       - run: supabase start
       - run: npm ci
       - run: npm run build --if-present
