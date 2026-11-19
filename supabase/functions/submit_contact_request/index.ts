@@ -45,7 +45,7 @@ const handler = async (request: Request): Promise<Response> => {
 
 	const supabaseServiceRoleClient = createClient(
 		SUPABASE_URL,
-		SUPABASE_SERVICE_ROLE_KEY
+		SUPABASE_SERVICE_ROLE_KEY,
 	);
 
 	// Get the user (= sender) data from the token
@@ -56,7 +56,7 @@ const handler = async (request: Request): Promise<Response> => {
 			recipientContactName,
 			token,
 			supabaseClient,
-			supabaseServiceRoleClient
+			supabaseServiceRoleClient,
 		);
 
 	if (!isAllowed || !lookupData) {
@@ -71,7 +71,7 @@ const handler = async (request: Request): Promise<Response> => {
 					...corsHeaders,
 					"Content-Type": "application/json",
 				},
-			}
+			},
 		);
 	}
 
@@ -124,7 +124,7 @@ const handler = async (request: Request): Promise<Response> => {
 					: {
 							user: SMTP_USER,
 							pass: SMTP_PASSWORD,
-					  },
+						},
 		});
 
 		const mailOptions = {
@@ -135,7 +135,7 @@ const handler = async (request: Request): Promise<Response> => {
 			html: mailTemplate(
 				lookupData.senderUsername,
 				message,
-				lookupData.senderEmail
+				lookupData.senderEmail,
 			),
 		};
 

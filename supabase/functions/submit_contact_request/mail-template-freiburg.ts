@@ -6,7 +6,7 @@ const REPORT_EMAIL = "info@freiburg-giesst.de";
 export const mailTemplate = (
 	username: string,
 	message: string,
-	email: string
+	email: string,
 ) => `
 <!DOCTYPE html>
 <html lang="de">

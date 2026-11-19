@@ -7,10 +7,10 @@ const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
 
 export const supabaseAnonClient = createClient<Database>(
 	supabaseUrl,
-	supabaseAnonKey
+	supabaseAnonKey,
 );
 
 export const supabaseServiceRoleClient = createClient<Database>(
 	supabaseUrl,
-	supabaseServiceRoleKey
+	supabaseServiceRoleKey,
 );

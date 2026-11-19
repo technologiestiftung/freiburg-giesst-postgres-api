@@ -9,7 +9,7 @@ export async function createTwoUsers(): Promise<{
 			email: "user1@test.com",
 			password: "password1",
 			email_confirm: true,
-		}
+		},
 	);
 	if (!data || error) {
 		throw new Error("Failed to create user1");
@@ -33,9 +33,8 @@ export async function createTwoUsers(): Promise<{
 export async function deleteUsers(usersIds: string[]) {
 	for (let idx = 0; idx < usersIds.length; idx++) {
 		const userId = usersIds[idx];
-		const { error } = await supabaseServiceRoleClient.auth.admin.deleteUser(
-			userId
-		);
+		const { error } =
+			await supabaseServiceRoleClient.auth.admin.deleteUser(userId);
 		if (error) {
 			throw new Error(`Failed to delete user with id = ${userId}`);
 		}

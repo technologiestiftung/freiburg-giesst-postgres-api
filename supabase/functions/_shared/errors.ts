@@ -11,7 +11,10 @@ export enum ErrorTypes {
 }
 
 export class GdkError extends Error {
-	constructor(message: string, public errorType: ErrorTypes) {
+	constructor(
+		message: string,
+		public errorType: ErrorTypes,
+	) {
 		super(message);
 	}
 }

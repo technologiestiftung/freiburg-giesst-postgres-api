@@ -27,7 +27,7 @@ const handler = async (_request: Request): Promise<Response> => {
 
 	const supabaseServiceRoleClient = createClient(
 		SUPABASE_URL,
-		SUPABASE_SERVICE_ROLE_KEY
+		SUPABASE_SERVICE_ROLE_KEY,
 	);
 
 	const token = authHeader.replace("Bearer ", "");
@@ -36,7 +36,7 @@ const handler = async (_request: Request): Promise<Response> => {
 		recipientContactName,
 		token,
 		supabaseClient,
-		supabaseServiceRoleClient
+		supabaseServiceRoleClient,
 	);
 
 	if (!isAllowed) {
@@ -51,7 +51,7 @@ const handler = async (_request: Request): Promise<Response> => {
 					...corsHeaders,
 					"Content-Type": "application/json",
 				},
-			}
+			},
 		);
 	}
 
@@ -66,7 +66,7 @@ const handler = async (_request: Request): Promise<Response> => {
 				...corsHeaders,
 				"Content-Type": "application/json",
 			},
-		}
+		},
 	);
 };
 

@@ -18,7 +18,7 @@ export async function checkIfContactRequestIsAllowed(
 	recipientContactName: string,
 	token: string,
 	supabaseClient: SupabaseClient,
-	supabaseServiceRoleClient: SupabaseClient
+	supabaseServiceRoleClient: SupabaseClient,
 ): Promise<CheckResult> {
 	// Get the user (= sender) data from the token
 	const { data: senderData, error: senderDataError } =

@@ -17,7 +17,7 @@ const [SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, PUMPS_URL] =
 
 const supabaseServiceRoleClient = createClient(
 	SUPABASE_URL,
-	SUPABASE_SERVICE_ROLE_KEY
+	SUPABASE_SERVICE_ROLE_KEY,
 );
 
 const getMostFrequentTreeSpecies = async (): Promise<TreeSpecies[]> => {
@@ -34,7 +34,7 @@ const getMostFrequentTreeSpecies = async (): Promise<TreeSpecies[]> => {
 	if (error) {
 		throw new GdkError(
 			error.message,
-			ErrorTypes.GdkStatsMostFrequentTreeSpecies
+			ErrorTypes.GdkStatsMostFrequentTreeSpecies,
 		);
 	}
 
@@ -65,7 +65,7 @@ const getTreeCount = async (): Promise<number> => {
 	if (data === null) {
 		throw new GdkError(
 			"Could not fetch count of trees_count table",
-			ErrorTypes.GdkStatsTreeCount
+			ErrorTypes.GdkStatsTreeCount,
 		);
 	}
 
@@ -80,7 +80,7 @@ const getUserProfilesCount = async (): Promise<number> => {
 	if (count === null) {
 		throw new GdkError(
 			"Could not fetch count of profiles table",
-			ErrorTypes.GdkStatsUser
+			ErrorTypes.GdkStatsUser,
 		);
 	}
 
@@ -97,7 +97,7 @@ const getWateringsCount = async (): Promise<number> => {
 	if (count === null) {
 		throw new GdkError(
 			"Could not fetch count of trees_watered table",
-			ErrorTypes.GdkStatsWatering
+			ErrorTypes.GdkStatsWatering,
 		);
 	}
 
@@ -235,7 +235,7 @@ const handler = async (request: Request): Promise<Response> => {
 	} catch (error) {
 		if (error instanceof GdkError) {
 			console.error(
-				`Error of type ${error.errorType} in gdk_stats function invocation: ${error.message}`
+				`Error of type ${error.errorType} in gdk_stats function invocation: ${error.message}`,
 			);
 		} else {
 			console.error(JSON.stringify(error));

@@ -20,12 +20,12 @@ const options = {
 const supabaseAnonClient: SupabaseClient = createClient(
 	supabaseUrl,
 	supabaseAnonKey,
-	options
+	options,
 );
 const supabaseServiceRoleClient: SupabaseClient = createClient(
 	supabaseUrl,
 	supabaseServiceRoleKey,
-	options
+	options,
 );
 
 const create5Users = async () => {
@@ -118,7 +118,7 @@ const testContactRequestBlockReasons = async () => {
 
 	assertEquals(
 		blockedContactRequestData.code,
-		"already_contacted_the_recipient_before"
+		"already_contacted_the_recipient_before",
 	);
 
 	// Second contact request to different user3 should be possible, used 2/3 requests
@@ -154,7 +154,7 @@ const testContactRequestBlockReasons = async () => {
 
 	assertEquals(
 		dailyLimitContactRequestData.code,
-		"already_sent_more_than_3_contact_requests"
+		"already_sent_more_than_3_contact_requests",
 	);
 
 	await deleteAllUsers(users);
@@ -168,7 +168,7 @@ const testUnauthorizedFunctionInvocation = async () => {
 				recipientContactName: "user2",
 				message: "Hello, world!",
 			},
-		}
+		},
 	);
 	// Workaround: https://github.com/supabase/functions-js/issues/65
 	await error.context.json();
@@ -195,7 +195,7 @@ const testRecipientNotFound = async () => {
 				recipientContactName: "user871",
 				message: "Hello, world!",
 			},
-		}
+		},
 	);
 
 	// Workaround: https://github.com/supabase/functions-js/issues/65
@@ -208,7 +208,7 @@ const testRecipientNotFound = async () => {
 // Register and run tests
 Deno.test(
 	"testUnauthorizedFunctionInvocation",
-	testUnauthorizedFunctionInvocation
+	testUnauthorizedFunctionInvocation,
 );
 Deno.test("testRecipientNotFound", testRecipientNotFound);
 Deno.test("testContactRequestBlockReasons", testContactRequestBlockReasons);
