@@ -1,6 +1,7 @@
 begin;
-select plan(1); -- only one statement to run
+select plan(1);
 
+select has_table('public'::name, 'trees'::name);
 
-SELECT * FROM finish();
+select * from finish();
 rollback;
