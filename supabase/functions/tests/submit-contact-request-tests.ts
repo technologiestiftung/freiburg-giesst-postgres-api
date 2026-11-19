@@ -78,6 +78,7 @@ const create5Users = async () => {
 	];
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const deleteAllUsers = async (users: any[]) => {
 	for (const user of users) {
 		await supabaseServiceRoleClient.auth.admin.deleteUser(user.user.id);

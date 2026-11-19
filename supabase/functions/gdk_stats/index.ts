@@ -11,6 +11,29 @@ import {
 } from "../_shared/common.ts";
 import { GdkError, ErrorTypes } from "../_shared/errors.ts";
 
+// Row shapes returned by the RPCs below (see src/database.ts)
+interface MonthlyWateringRow {
+	month: string;
+	watering_count: number;
+	total_sum: number;
+	avg_amount_per_watering: number;
+}
+
+interface MonthlyWeatherRow {
+	month: string;
+	avg_temperature_celsius: number;
+	max_temperature_celsius: number;
+	total_rainfall_liters: number;
+}
+
+interface WateringRow {
+	id: string;
+	lat: number;
+	lng: number;
+	amount: number;
+	timestamp: string;
+}
+
 const ENV_VARS = ["SUPABASE_URL", "SUPABASE_SERVICE_ROLE_KEY", "PUMPS_URL"];
 const [SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, PUMPS_URL] =
 	loadEnvVars(ENV_VARS);
@@ -137,7 +160,7 @@ const getMonthlyWaterings = async (): Promise<Monthly[]> => {
 		throw new GdkError(error.message, ErrorTypes.GdkStatsWatering);
 	}
 
-	return data.map((month: any) => ({
+	return data.map((month: MonthlyWateringRow) => ({
 		month: month.month,
 		wateringCount: month.watering_count,
 		totalSum: month.total_sum,
@@ -154,7 +177,7 @@ const getMonthlyWeather = async (): Promise<MonthlyWeather[]> => {
 		throw new GdkError(error.message, ErrorTypes.GdkStatsWeather);
 	}
 
-	return data.map((month: any) => ({
+	return data.map((month: MonthlyWeatherRow) => ({
 		month: month.month,
 		averageTemperatureCelsius: month.avg_temperature_celsius,
 		maximumTemperatureCelsius: month.max_temperature_celsius,
@@ -171,7 +194,7 @@ const getWaterings = async (): Promise<Watering[]> => {
 		throw new GdkError(error.message, ErrorTypes.GdkStatsWatering);
 	}
 
-	return data.map((watering: any) => {
+	return data.map((watering: WateringRow) => {
 		return {
 			id: watering.id,
 			lat: watering.lat,
